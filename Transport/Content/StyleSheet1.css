@@ -1,0 +1,104 @@
+﻿body {
+    padding-top: 100px;
+    padding-bottom: 20px;
+    text-align:right;
+   
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+input {
+float:right!important ;
+}
+#fromWhere {
+    height: 34px;
+  
+}
+
+
+#toAddress {
+    height: 34px;
+   
+}
+#drivers {
+    height: 34px;
+    float: right;
+    width: 288px;
+    margin-left: 40px;
+}
+#identifyDrivers {
+    height: 34px;
+    float: right;
+    width: 288px;
+    margin-left: 40px;
+}
+#cars {
+    height: 34px;
+    float: right;
+    width: 288px;
+    margin-left: 40px;
+}
+#fromDest {
+    height: 34px;
+    float: right;
+    width: 288px;
+    margin-left: 40px;
+}
+#Dest {
+    height: 34px;
+    float: right;
+    width: 288px;
+    margin-left: 40px;
+}
+li:hover {
+background-color:red;
+}
+select {
+    background-color: red;
+    color: #fff;
+}
+
+option {
+    background-color: black !important;
+}
+
+#inputDirver {
+    height: 34px;
+}
+
+#inputFromAdded {
+    margin-top: 20px;
+}
+
+
+#price {
+   
+    margin-top: 20px;
+}
+#button {
+    margin-top: 20px;
+  background-color:black;
+  color:#FFBB00;
+    margin-left: 40px;
+    font-size:20px;
+    font-family:'AGA Arabesque';
+}
+
+

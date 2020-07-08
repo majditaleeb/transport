@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Error";
+    Layout = null;
+}
+
+@if (Session["userId"] != null)
+{
+    <div style="margin-top: 150px;text-align: center;">
+        <h1 style="color:red;font-size: 30px;">غير مسموح إجراء هذه الطريقة/العملية</h1>
+        <h1 style="color:red;font-size: 30px;">لا يسمح لك النظام بهذا الطلب</h1>
+        <hr>
+        <hgroup>
+            <h1>Error.</h1>
+            <h2>An error occurred while processing your request.</h2>
+        </hgroup>
+        <p>مع تحيات قسم التطوير</p>
+    </div>
+}
+else
+{
+    Response.RedirectToRoute(new { Controller = "LoginLogout", Action = "Login" });
+}

@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TransportDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Car">
+    <Key>
+      <PropertyRef Name="carId" />
+    </Key>
+    <Property Name="carId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="carName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="From">
+    <Key>
+      <PropertyRef Name="fromId" />
+    </Key>
+    <Property Name="fromId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fromName" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Informaion">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CashOrReserve" Type="bit" />
+    <Property Name="CashValue" Type="money" />
+    <Property Name="fromId" Type="int" />
+    <Property Name="toId" Type="int" />
+    <Property Name="travellerId" Type="int" />
+    <Property Name="carId" Type="int" />
+    <Property Name="userid" Type="int" />
+    <Property Name="dateTravel" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="To">
+    <Key>
+      <PropertyRef Name="toId" />
+    </Key>
+    <Property Name="toId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="toName" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Traveller">
+    <Key>
+      <PropertyRef Name="travellerId" />
+    </Key>
+    <Property Name="travellerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="travellerIdentifiy" Type="nvarchar" MaxLength="50" />
+    <Property Name="travellerName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="userid" />
+    </Key>
+    <Property Name="userid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="userLogin" Type="nvarchar" MaxLength="50" />
+    <Property Name="passwordLogin" Type="nvarchar" MaxLength="50" />
+    <Property Name="userFname" Type="nvarchar" MaxLength="50" />
+    <Property Name="userLname" Type="nvarchar" MaxLength="50" />
+    <Property Name="userIdentifiy" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Informaion_Car">
+    <End Role="Car" Type="Self.Car" Multiplicity="0..1" />
+    <End Role="Informaion" Type="Self.Informaion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Car">
+        <PropertyRef Name="carId" />
+      </Principal>
+      <Dependent Role="Informaion">
+        <PropertyRef Name="carId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Informaion_From">
+    <End Role="From" Type="Self.From" Multiplicity="0..1" />
+    <End Role="Informaion" Type="Self.Informaion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="From">
+        <PropertyRef Name="fromId" />
+      </Principal>
+      <Dependent Role="Informaion">
+        <PropertyRef Name="fromId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Informaion_To">
+    <End Role="To" Type="Self.To" Multiplicity="0..1" />
+    <End Role="Informaion" Type="Self.Informaion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="To">
+        <PropertyRef Name="toId" />
+      </Principal>
+      <Dependent Role="Informaion">
+        <PropertyRef Name="toId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Informaion_Traveller">
+    <End Role="Traveller" Type="Self.Traveller" Multiplicity="0..1" />
+    <End Role="Informaion" Type="Self.Informaion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Traveller">
+        <PropertyRef Name="travellerId" />
+      </Principal>
+      <Dependent Role="Informaion">
+        <PropertyRef Name="travellerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Informaion_User">
+    <End Role="User" Type="Self.User" Multiplicity="0..1" />
+    <End Role="Informaion" Type="Self.Informaion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="userid" />
+      </Principal>
+      <Dependent Role="Informaion">
+        <PropertyRef Name="userid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TransportDBModelStoreContainer">
+    <EntitySet Name="Car" EntityType="Self.Car" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="From" EntityType="Self.From" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Informaion" EntityType="Self.Informaion" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="To" EntityType="Self.To" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Traveller" EntityType="Self.Traveller" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Informaion_Car" Association="Self.FK_Informaion_Car">
+      <End Role="Car" EntitySet="Car" />
+      <End Role="Informaion" EntitySet="Informaion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Informaion_From" Association="Self.FK_Informaion_From">
+      <End Role="From" EntitySet="From" />
+      <End Role="Informaion" EntitySet="Informaion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Informaion_To" Association="Self.FK_Informaion_To">
+      <End Role="To" EntitySet="To" />
+      <End Role="Informaion" EntitySet="Informaion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Informaion_Traveller" Association="Self.FK_Informaion_Traveller">
+      <End Role="Traveller" EntitySet="Traveller" />
+      <End Role="Informaion" EntitySet="Informaion" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Informaion_User" Association="Self.FK_Informaion_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Informaion" EntitySet="Informaion" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

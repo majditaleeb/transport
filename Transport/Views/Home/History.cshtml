@@ -1,0 +1,206 @@
+﻿@model IEnumerable<Transport.Models.HomeIndexMV>
+
+@{
+    ViewBag.Title = "السجل";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (Session["userId"] != null)
+{
+    <h2>السجل الكلي للحركات</h2>
+
+    <p>
+        @Html.ActionLink("القائمة", "Index", "Home", new { @class = "btn btn-primary" })
+    </p>
+    <table class="table table-bordered table-condensed table-responsive table-hover" style="direction:rtl;">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.travellerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.travellerIdentifiy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fromName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.toName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.carName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashOrReserve)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CashValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dateTravel)
+            </th>
+            <th>
+                @Html.DisplayName("موظف التسجيل")
+            </th>
+            <th>
+            </th>
+        </tr>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                if (item.CashOrReserve == true)
+                {
+                    <tr class="bg-success" style="font-weight:bolder;">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Traveller.travellerName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Traveller.travellerIdentifiy)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.From.fromName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.To.toName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Car.carName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CashOrReserve)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CashValue)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dateTravel)
+                        </td>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => item.User.userLogin + " " + item.User.userLname)*@
+                            @Html.DisplayName(item.User.userLogin + " " + item.User.userLname)
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr class="bg-danger" style="font-weight:bolder;">
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Traveller.travellerName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Traveller.travellerIdentifiy)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.From.fromName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.To.toName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Car.carName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CashOrReserve)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CashValue)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dateTravel)
+                        </td>
+                        <td>
+                            @*@Html.DisplayFor(modelItem => item.User.userLogin + " " + item.User.userLname)*@
+                            @Html.DisplayName(item.User.userLogin + " " + item.User.userLname)
+                        </td>
+                        <td>
+                            <a href="#" onclick="ConfirmPay(@item.id)">تسديد</a>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+        else
+        {
+            <tr>
+                <td>
+                    <h3 class="bg-danger">لا توجد بيانات للعرض</h3>
+                </td>
+            </tr>
+        }
+    </table>
+    <input type="hidden" id="HiddenId" />
+    <div class="modal fade" id="modalPay">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h3 class="modal-title">تسديد الدين</h3>
+                </div>
+                <div class="modal-body">
+                    <h2>هل أنت متأكد من عملية تسديد الدين ؟؟؟</h2>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-danger" data-dismiss="modal">خروج</a>
+                    <a href="#" class="btn btn-success" onclick="payMthod()">تأكيد</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <link href="~/Styles/sweetalert.css" rel="stylesheet" />
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script>
+        var ConfirmPay = function (id) {
+        $('#HiddenId').val(id);
+        $('#modalPay').modal().show();
+        }
+
+    var payMthod = function () {
+        var id = $('#HiddenId').val();
+        $.ajax({
+            type: "post",
+            url: '@Url.Action("Pay", "Home")',
+            data: { idGet: id },
+            success: function (result) {
+                if (result == true) {
+                    swal({
+                        title: "تنبيه",
+                        text: "تمت العملية بنجاح",
+                        type: 'success',
+                        confirmButtonText: 'موافق',
+                        closeOnConfirm: false,
+                        closeOnCancel: false,
+                    }, function (isConfirm) {
+                        window.location.href = "/Home/Index";
+                    });
+                }
+                else
+                {
+                    swal({
+                        title: "تحذير",
+                        text: "فشل العملية",
+                        type: 'error',
+                        confirmButtonText: 'موافق',
+                        closeOnConfirm: false,
+                        closeOnCancel: false,
+                    }, function (isConfirm) {
+                        window.location.href = "/Home/Index";
+                    });
+                }
+            }
+        }).done(function () {
+            $('#modalPay').modal('hide');
+            $(".modal-backdrop").fadeOut('slow');
+        })
+    }
+    </script>
+}
+else
+{
+    Response.RedirectToRoute(new { Controller = "LoginLogout", Action = "Login" });
+}

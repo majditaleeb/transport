@@ -1,0 +1,84 @@
+﻿@if (Session["userId"] != null)
+{
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - مكتب الاقصى</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        <style>
+            #bye123 {
+            font-size:20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("مكتب الاقصى", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("القائمة", "Index", "Home")</li>
+                        <li>
+                            <a href="#" style="color:red;" id="bye123">تسجيل خروج @Session["userLname"].ToString()  @Session["userFname"].ToString()</a>
+                        </li>
+                        <li>@*@Html.ActionLink("تسجيل الخروج", "Index", "Home")*@</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p class="text-center">&copy; @DateTime.Now.Year - مكتب الاقصى</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+        <link href="~/Styles/sweetalert.css" rel="stylesheet" />
+        <script src="~/Scripts/sweetalert.min.js"></script>
+        <script>
+            $('#bye123').click(function () {
+
+                swal({
+                    title: "تحذير",
+                    text: "هل أنت متأكد من عملية تسجيل الخروج؟",
+                    type: 'info',
+                    showCancelButton: true,
+                    cancelButtonText: 'إلغاء',
+                    confirmButtonText: 'موافق',
+                    closeOnConfirm: false,
+                    closeOnCancel: false,
+                }, function (isConfirm) {
+                        if (isConfirm) {
+                            swal.close();
+                            window.location.href = "/LoginLogout/Logout";
+                        }
+                        else
+                        {
+                            swal.close();
+                        }
+                })
+            });
+        </script>
+    </body>
+</html>
+
+}
+else
+{
+Response.RedirectToRoute(new { Controller = "LoginLogout", Action = "Logout" });
+@*<li><h2 class="text-center bg-danger">يرجى تسجيل الدخول لإظهارجميع المحتوى</h2></li>*@
+}

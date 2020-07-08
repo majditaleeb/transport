@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6d858dab3d994259a2ba5e8c60380d60" Name="Diagram1">
+        <EntityTypeShape EntityType="TransportDBModel.Car" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportDBModel.From" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportDBModel.Informaion" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportDBModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportDBModel.To" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportDBModel.Traveller" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TransportDBModel.User" Width="1.5" PointX="0.75" PointY="12.5" IsExpanded="true" />
+        <AssociationConnector Association="TransportDBModel.FK_Informaion_Car" ManuallyRouted="false" />
+        <AssociationConnector Association="TransportDBModel.FK_Informaion_From" ManuallyRouted="false" />
+        <AssociationConnector Association="TransportDBModel.FK_Informaion_To" ManuallyRouted="false" />
+        <AssociationConnector Association="TransportDBModel.FK_Informaion_Traveller" ManuallyRouted="false" />
+        <AssociationConnector Association="TransportDBModel.FK_Informaion_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

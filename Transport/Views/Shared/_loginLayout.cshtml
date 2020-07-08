@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - مكتب الاقصى</title>
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <link href="~/Content/Login/login.css" rel="stylesheet" />
+    <script src="~/Content/Login/login.js"></script>
+    <div class="background-wrap">
+        <div class="background"></div>
+    </div>
+    @RenderBody()
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

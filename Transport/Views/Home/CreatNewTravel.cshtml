@@ -1,0 +1,360 @@
+﻿@model Transport.Models.HomeIndexMV
+
+@{
+    ViewBag.Title = "إنشاء نقل جديد";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var dropDawnlistValues = (Transport.Models.DropDawnCollection)ViewBag.DDL;
+}
+
+@if (Session["userId"] != null)
+{
+    <h2>@ViewBag.Title</h2>
+    <p>
+        @Html.ActionLink("القائمة", "Index", "Home", new { @class = "btn btn-primary" })
+    </p>
+    using (Html.BeginForm("CreatNewTravel", "Home", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CashOrReserve, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.CashOrReserve, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.CashOrReserve, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CashValue, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.CashValue, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CashValue, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    @if (dropDawnlistValues != null)
+                    {
+                        if (dropDawnlistValues.travellerNameDDl != null)
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.travellerName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.travellerName, (SelectList)dropDawnlistValues.travellerNameDDl, "--يرجى الإختيار--", new { @class = "form-control", @id = "travellerNameId" })
+                                    @Html.ValidationMessageFor(model => model.travellerName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group" id="anotherTravellerNameDiv">
+                                @Html.LabelFor(model => model.anotherTravellerName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.anotherTravellerName, new { htmlAttributes = new { @class = "form-control", @id = "anotherTravellerNameId" } })
+                                    @Html.ValidationMessageFor(model => model.anotherTravellerName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div style="background-color:red;">
+                                <p style="color:white;font-size:20px;">لاتوجد اسامي اشخاص في قواعد البيانات</p>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.anotherTravellerName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.anotherTravellerName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.anotherTravellerName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+
+                        if (dropDawnlistValues.travellerIdentifyDDl != null)
+                        {
+                            <div class="form-group" id="travellerIdentifiyDiv" hidden>
+                                @Html.LabelFor(model => model.travellerIdentifiy, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.travellerIdentifiy, (SelectList)dropDawnlistValues.travellerIdentifyDDl, "--يرجى الإختيار--", new { @id= "travellerIdentifiyId", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.travellerIdentifiy, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group" id="anotherTravellerIdentifiyDiv">
+                                @Html.LabelFor(model => model.anotherTravellerIdentifiy, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.anotherTravellerIdentifiy, new { htmlAttributes = new {@id= "anotherTravellerIdentifiyId", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.anotherTravellerIdentifiy, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div style="background-color:red;">
+                                <p style="color:white;font-size:20px;">لاتوجد اسامي مناطق في قواعد البيانات</p>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.anotherTravellerIdentifiy, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.anotherTravellerIdentifiy, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.anotherTravellerIdentifiy, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+
+                        if (dropDawnlistValues.carNameDDl != null)
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.carName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.carName, (SelectList)dropDawnlistValues.carNameDDl, "--يرجى الإختيار--", new {@id= "carNameId", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.carName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group" id="anotherCarNameDiv">
+                                @Html.LabelFor(model => model.anotherCarName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.anotherCarName, new { htmlAttributes = new {@id= "anotherCarNameId", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.anotherCarName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div style="background-color:red;">
+                                <p style="color:white;font-size:20px;">لاتوجد اسامي مناطق في قواعد البيانات</p>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.anotherCarName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.anotherCarName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.anotherCarName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div style="background-color:red;">
+                            <p style="color:white;font-size:20px;">لم يتم تحميل بيانات من و إلى واسم الطريق يوج خلل</p>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.anotherTravellerName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.anotherTravellerName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.anotherTravellerName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.anotherTravellerIdentifiy, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.anotherTravellerIdentifiy, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.anotherTravellerIdentifiy, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.anotherCarName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.anotherCarName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.anotherCarName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-horizontal">
+                    @if (dropDawnlistValues != null)
+                    {
+                        if (dropDawnlistValues.fromNameDDl != null)
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.fromName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.fromName, (SelectList)dropDawnlistValues.fromNameDDl, "--يرجى الإختيار--", new {@id= "fromNameId", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.fromName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group" id="anotherFromNameDiv">
+                                @Html.LabelFor(model => model.anotherFromName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.anotherFromName, new { htmlAttributes = new {@id= "anotherFromNameId", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.anotherFromName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div style="background-color:red;">
+                                <p style="color:white;font-size:20px;">لاتوجد اسامي مناطق في قواعد البيانات</p>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.anotherFromName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.anotherFromName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.anotherFromName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+
+                        if (dropDawnlistValues.toNameDDl != null)
+                        {
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.toName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.toName, (SelectList)dropDawnlistValues.toNameDDl, "--يرجى الإختيار--",  new {@id= "toNameId", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.toName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group" id="anotherToNameDiv">
+                                @Html.LabelFor(model => model.anotherToName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.anotherToName, new { htmlAttributes = new {@id= "anotherToNameId", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.anotherToName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div style="background-color:red;">
+                                <p style="color:white;font-size:20px;">لاتوجد اسامي مناطق في قواعد البيانات</p>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.anotherToName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.anotherToName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.anotherToName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+
+                    }
+                    else
+                    {
+                        <div style="background-color:red;">
+                            <p style="color:white;font-size:20px;">لم يتم تحميل بيانات من و إلى يوجد خلل</p>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.anotherFromName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.anotherFromName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.anotherFromName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.anotherToName, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.anotherToName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.anotherToName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+  
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script>
+
+        $('#travellerNameId').change(function () {
+            var value = $(this).val();
+
+            if (value >0 || value != "") {
+                $('#anotherTravellerNameId').val("");
+                $('#anotherTravellerNameDiv').fadeOut('slow');
+
+                $('#anotherTravellerIdentifiyId').val("");
+                $('#anotherTravellerIdentifiyDiv').fadeOut('slow');
+
+                $('#travellerIdentifiyId').val(value);
+                $('#travellerIdentifiyDiv').fadeIn('slow');
+
+                  @*$.ajax({
+                     type: "Get",
+                     url:'@Url.Action("GetIdentify", "Home")',
+                      data: { getIdentif: value},
+                    success: function (identify) {
+                        if (infos) {
+                            $('#travellerIdentifiyId').val(identify);
+                        }
+                        else
+                        {
+                            alert('لم يتم التحصل على رقم هوية  الاس من قواعد البيانات, يرجى تعبئة أخرى رقم الهوية, وفي حال تعبئة أخرى رقم الهوية بقيمة لا تاسب اسم الشخصسيقون النظم بتحصل علىالقيمة اتوماتيكيا');
+                        }
+                    }
+                })*@
+            }
+            else
+            {
+                $('#anotherTravellerNameId').val("");
+                $('#anotherTravellerNameDiv').fadeIn('slow');
+
+                $('#anotherTravellerIdentifiyId').val("");
+                $('#anotherTravellerIdentifiyDiv').fadeIn('slow');
+
+                $('#travellerIdentifiyId').val("");
+                $('#travellerIdentifiyDiv').fadeOut('slow');
+            }
+        });
+
+        $('#carNameId').change(function () {
+            var value = $(this).val();
+
+            if (value > 0 || value != "") {
+                $('#anotherCarNameId').val("");
+                $('#anotherCarNameDiv').fadeOut('slow');
+            }
+            else {
+                $('#anotherCarNameId').val("");
+                $('#anotherCarNameDiv').fadeIn('slow');
+            }
+        });
+
+        $('#fromNameId').change(function () {
+            var value = $(this).val();
+
+            if (value > 0 || value != "") {
+                $('#anotherFromNameId').val("");
+                $('#anotherFromNameDiv').fadeOut('slow');
+            }
+            else {
+                $('#anotherFromNameId').val("");
+                $('#anotherFromNameDiv').fadeIn('slow');
+            }
+        });
+
+        $('#toNameId').change(function () {
+            var value = $(this).val();
+
+            if (value > 0 || value != "") {
+                $('#anotherToNameId').val("");
+                $('#anotherToNameDiv').fadeOut('slow');
+            }
+            else {
+                $('#anotherToNameId').val("");
+                $('#anotherToNameDiv').fadeIn('slow');
+            }
+        });
+
+    </script>
+}
+else
+{
+    Response.RedirectToRoute(new { Controller = "LoginLogout", Action = "Login" });
+}

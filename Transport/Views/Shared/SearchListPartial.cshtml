@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Transport.Models.HomeIndexMV>
+
+
+@if (Session["userId"] != null)
+{
+
+    if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            if (item.CashOrReserve == true)
+            {
+                <tr class="bg-success" style="font-weight:bolder;">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Traveller.travellerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Traveller.travellerIdentifiy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.From.fromName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.To.toName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Car.carName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CashOrReserve)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CashValue)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dateTravel)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.User.userLogin + " " + item.User.userLname)*@
+                        @Html.DisplayName(item.User.userLogin + " " + item.User.userLname)
+                    </td>
+                    <td>
+                        @Html.ActionLink("السجل", "History", "Home", new { id = item.Traveller.travellerIdentifiy }, null)
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr class="bg-danger" style="font-weight:bolder;">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Traveller.travellerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Traveller.travellerIdentifiy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.From.fromName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.To.toName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Car.carName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CashOrReserve)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CashValue)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dateTravel)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.User.userLogin + " " + item.User.userLname)*@
+                        @Html.DisplayName(item.User.userLogin + " " + item.User.userLname)
+                    </td>
+                    <td>
+                        @Html.ActionLink("السجل", "History", "Home", new { id = item.Traveller.travellerIdentifiy }, null)
+                    </td>
+                    <td>
+                        <a href="#" onclick="ConfirmPay(@item.id)">تسديد</a>
+                    </td>
+                </tr>
+            }
+        }
+    }
+    else
+    {
+        <tr>
+            <td>
+                <h3 class="bg-danger">لا توجد بيانات للعرض</h3>
+            </td>
+        </tr>
+    }
+}
+else
+{
+    Response.RedirectToRoute(new { Controller = "LoginLogout", Action = "Login" });
+}
